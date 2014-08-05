@@ -61,6 +61,14 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def random
+    restaurant_id = Restaurant.pluck(:id).sample
+    respond_to do |format|
+      format.html { redirect_to restaurant_url(id: restaurant_id) }
+      format.json { render json: Restaurant.find(restaurant_id) }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
